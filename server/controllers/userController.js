@@ -16,8 +16,9 @@ export const signup = async (req, res) => {
         res.status(500).json({
             message: "Somthing went wrong"
         });
-
-    }
-
-    
+    } 
 };
+
+export const login = async (req,res) =>{
+    
+}
