@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 
 export const signup = async (req, res) => {
-    try{
+    try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         req.body.password = hashedPassword;
         const user = await User.create(req.body);
@@ -17,22 +17,22 @@ export const signup = async (req, res) => {
         res.status(500).json({
             message: "Somthing went wrong"
         });
-    } 
+    }
 };
 
-export const login = async (req,res) =>{
-    try{
+export const login = async (req, res) => {
+    try {
         const user = await User.findOne({
-            email : req.body.email
+            email: req.body.email
         });
-        if(!user) {
+        if (!user) {
             return res.status(400).json({
                 message: "Email not Found"
             });
         }
         const typedpassword = req.body.password;
-        const isMatch = await bcrypt.compare(typedpassword,user.password);
-        if(isMatch){
+        const isMatch = await bcrypt.compare(typedpassword, user.password);
+        if (isMatch) {
             const token = jwt.sign(
                 {
                     id: user._id,
@@ -52,14 +52,33 @@ export const login = async (req,res) =>{
         }
 
         return res.status(400).json({
-            message : "Invalid credentials"
+            message: "Invalid credentials"
         });
-        
-    } 
+
+    }
     catch (err) {
         console.log(err);
         return res.status(500).json({
             message: "Something went wrong!"
         });
+    }
+}
+
+export const getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("-password");
+        if(!user){
+            return res.status(404).json({
+                message: "User Profile not found"
+            })
+        } else {
+            return res.status(200).json(user);
+        }
+    }
+
+    catch (err) {
+        return res.status(500).json({
+            message: "Server error"
+        })
     }
 }

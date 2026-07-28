@@ -1,6 +1,7 @@
 import express from "express";
-import { signup, login } from "../controllers/userController.js";
+import { signup, login, getProfile } from "../controllers/userController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
+import authorize from "../middleware/authorize.js";
 
 
 const router = express.Router();
@@ -11,7 +12,9 @@ router.get("/test", authMiddleware, (req,res)=>{
     res.json({
         message: "You reached the protected route!"
     });
-})
+});
+
+router.get("/profile", authMiddleware, getProfile);
 
 
 export default router; 
