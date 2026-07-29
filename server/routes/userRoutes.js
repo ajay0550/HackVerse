@@ -1,5 +1,5 @@
 import express from "express";
-import { signup, login, getProfile } from "../controllers/userController.js";
+import { signup, login, getProfile, updateProfile } from "../controllers/userController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import authorize from "../middleware/authorize.js";
 
@@ -15,6 +15,7 @@ router.get("/test", authMiddleware, (req,res)=>{
 });
 
 router.get("/profile", authMiddleware, getProfile);
+router.put("/profile", authMiddleware, updateProfile);
 
 
 export default router; 

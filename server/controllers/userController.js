@@ -67,7 +67,7 @@ export const login = async (req, res) => {
 export const getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select("-password");
-        if(!user){
+        if (!user) {
             return res.status(404).json({
                 message: "User Profile not found"
             })
@@ -80,5 +80,29 @@ export const getProfile = async (req, res) => {
         return res.status(500).json({
             message: "Server error"
         })
+    }
+}
+
+export const updateProfile = async (req, res) => {
+    const { name, email } = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(req.user.id, { name, email },
+            {
+                new: true,
+                runValidators: true
+            }
+        ).select("-password");
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+        return res.status(200).json(user);
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: "Something went wrong"
+        });
     }
 }
