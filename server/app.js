@@ -3,6 +3,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import hackathonRoutes from "./routes/hackathonRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
+import joinRequestRoutes from "./routes/joinRequestRoutes.js";
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/hackathons", hackathonRoutes);
 app.use("/api/teams", teamRoutes);
+app.use("/api/teams", joinRequestRoutes);
 
 
 app.get("/" , (req,res)=>{
