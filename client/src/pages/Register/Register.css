@@ -1,0 +1,140 @@
+.register-page{
+
+    min-height:90vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding-top: 30px;
+}
+
+.register-card{
+
+    width:400px;
+
+    background:#20293c;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+}
+
+.register-tag{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    margin-bottom:10px;
+}
+
+.register-card h1{
+
+    font-size:2rem;
+
+    margin-bottom:12px;
+}
+
+.register-subtitle{
+
+    color:var(--text-secondary);
+
+    margin-bottom:30px;
+
+    line-height:1.6;
+}
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:18px;
+}
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    font-weight:500;
+}
+
+.input-group input,
+.input-group select{
+
+    background:transparent;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+    padding:8px;
+
+    outline:none;
+
+    transition:.25s;
+}
+
+.input-group input:hover,
+.input-group select:hover{
+
+    border-color:var(--primary);
+}
+
+.input-group input:focus,
+.input-group select:focus{
+
+    border-color:var(--primary);
+}
+
+.register-button{
+
+    width:100%;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    margin-top:12px;
+
+    transition:.25s;
+}
+
+.register-button:hover{
+
+    background:var(--primary-hover);
+}
+
+.bottom-text{
+
+    text-align:center;
+
+    margin-top:28px;
+
+    color:var(--text-secondary);
+}
+
+.bottom-text span{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    cursor:pointer;
+}

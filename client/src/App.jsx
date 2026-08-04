@@ -1,48 +1,32 @@
+import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar/Navbar";
+
+import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import BrowseHackathons from "./pages/BrowseHackathons/BrowseHackathons";
+import HackathonDetails from "./pages/HackathonDetails/HackathonDetails";
+import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <>
       <Navbar />
-      <Login />
+      <ScrollToTop />
 
-      <div className="page">
-        <div className="container hero">
-
-          <p className="hero-tag">
-            🚀 The modern platform for hackathons
-          </p>
-
-          <h1 className="hero-title">
-            Find teammates.
-            <br />
-            Build projects.
-            <br />
-            Win hackathons.
-          </h1>
-
-          <p className="hero-description">
-            HackVerse helps students discover hackathons,
-            build teams, collaborate, and submit projects—
-            all in one place.
-          </p>
-
-          <div className="hero-buttons">
-
-            <button className="primary-btn">
-              Browse Hackathons
-            </button>
-
-            <button className="secondary-btn">
-              Host a Hackathon
-            </button>
-
-          </div>
-
-        </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/hackathons" element={<BrowseHackathons />} />
+        <Route
+          path="/hackathons/:id"
+          element={<HackathonDetails />}
+        />
+      </Routes>
+      <Footer/>
     </>
   );
 }
-
