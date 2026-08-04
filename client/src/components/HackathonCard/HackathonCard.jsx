@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./HackathonCard.css";
 import {
   CalendarDays,
@@ -8,6 +9,15 @@ import {
 } from "lucide-react";
 
 export default function HackathonCard({ hackathon }) {
+  const formattedDate = new Date(hackathon.startDate).toLocaleDateString(
+    "en-IN",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
+
   return (
     <div className="hackathon-card">
 
@@ -34,31 +44,34 @@ export default function HackathonCard({ hackathon }) {
       <div className="hackathon-info">
 
         <div>
-          <CalendarDays size={18}/>
-          <span>{hackathon.date}</span>
+          <CalendarDays size={18} />
+          <span>{formattedDate}</span>
         </div>
 
         <div>
-          <Trophy size={18}/>
-          <span>{hackathon.prize}</span>
+          <Trophy size={18} />
+          <span>₹{hackathon.prizePool?.toLocaleString()}</span>
         </div>
 
         <div>
-          <Users size={18}/>
-          <span>{hackathon.teamSize}</span>
+          <Users size={18} />
+          <span>{hackathon.maxTeamSize} Members</span>
         </div>
 
         <div>
-          <Globe size={18}/>
+          <Globe size={18} />
           <span>{hackathon.mode}</span>
         </div>
 
       </div>
 
-      <button className="details-btn">
+      <Link
+        to={`/hackathons/${hackathon._id}`}
+        className="details-btn"
+      >
         View Details
-        <ArrowRight size={18}/>
-      </button>
+        <ArrowRight size={18} />
+      </Link>
 
     </div>
   );
