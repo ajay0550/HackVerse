@@ -5,6 +5,8 @@ import {
     deleteTeam,
     getAllTeams,
     getTeamById,
+    getMyTeams,
+    getHackathonTeams,
 } from "../controllers/teamController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -17,5 +19,7 @@ router.delete("/:id", authMiddleware, deleteTeam);
 
 router.get("/", getAllTeams);
 router.get("/:id", getTeamById);
+router.get("/my", authMiddleware, getMyTeams);
+router.get("/hackathon/:id", getHackathonTeams);
 
 export default router;

@@ -34,7 +34,10 @@ export const createTeam = async (req, res) => {
             members: [req.user.id],
         });
 
-        return res.status(201).json(team);
+        return res.status(201).json({
+            message : "Team created successfully",
+            team,
+        });
 
     } catch (err) {
         return res.status(500).json({
@@ -191,6 +194,44 @@ export const getTeamById = async (req, res) => {
         }
 
         return res.status(200).json(team);
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+};
+
+export const getMyTeams = async (req, res) => {
+    try {
+        const teams = await Team.find({
+            members: req.user.id,
+        })
+            .populate("leader", "name email")
+            .populate("members", "name email")
+            .populate("hackathon", "title");
+
+        return res.status(200).json({
+            team,
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+};  
+
+export const getHackathonTeams = async (req, res) => {
+    try {
+
+        const teams = await Team.find({
+            hackathon: req.params.id,
+        })
+            .populate("leader", "name email")
+            .populate("members", "name email");
+
+        return res.status(200).json(teams);
 
     } catch (err) {
         return res.status(500).json({
