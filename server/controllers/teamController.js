@@ -212,7 +212,7 @@ export const getMyTeams = async (req, res) => {
             .populate("hackathon", "title");
 
         return res.status(200).json({
-            team,
+            teams,
         });
 
     } catch (err) {
