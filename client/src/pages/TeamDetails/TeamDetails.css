@@ -1,0 +1,272 @@
+.team-details-page {
+  min-height: calc(100vh - 80px);
+  padding: 70px 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 45px;
+}
+
+.back-link:hover {
+  color: white;
+}
+
+.team-details-header {
+  margin-bottom: 45px;
+}
+
+.team-details-tag {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.team-details-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+.team-hackathon {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.team-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 24px;
+}
+
+.team-details-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.team-details-card h2 {
+  margin-bottom: 25px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row svg {
+  color: var(--primary);
+}
+
+.detail-row div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detail-row span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.member-info > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.member-info span {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.member-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.leader-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+.team-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.team-leave-btn,
+.team-delete-btn {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background: transparent;
+  color: var(--text);
+}
+
+.team-delete-btn {
+  color: #ef4444;
+}
+
+.team-leave-btn:hover,
+.team-delete-btn:hover {
+  opacity: 0.8;
+}
+
+.team-error {
+  color: #ef4444;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+  .team-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-details-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .team-actions {
+    justify-content: flex-start;
+  }
+}
+
+.join-requests-card {
+  margin-top: 24px;
+}
+
+.join-requests-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.join-requests-header h2 {
+  margin-bottom: 0;
+}
+
+.request-count {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.join-requests-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.join-request-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.join-request-row:last-child {
+  border-bottom: none;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn,
+.reject-btn {
+  padding: 9px 16px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.accept-btn {
+  background: var(--primary);
+  color: white;
+}
+
+.reject-btn {
+  background: transparent;
+  color: #ef4444;
+}
+
+.accept-btn:hover,
+.reject-btn:hover {
+  opacity: 0.85;
+}
+
+.accept-btn:disabled,
+.reject-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .join-request-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .request-actions {
+    width: 100%;
+  }
+
+  .accept-btn,
+  .reject-btn {
+    flex: 1;
+  }
+}

@@ -1,115 +1,319 @@
-.details-page{
-
-    padding:70px 0;
+.details-page {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 70px 0 100px;
 }
 
-.details-header{
+/* =========================
+   HEADER
+========================= */
 
-    max-width:760px;
-
-    margin-bottom:60px;
+.details-header {
+  margin-bottom: 60px;
 }
 
-.details-header h1{
-
-    font-size:3.4rem;
-
-    margin:20px 0;
+.details-header h1 {
+  font-size: 4rem;
+  line-height: 1.05;
+  margin: 18px 0;
+  letter-spacing: -2px;
 }
 
-.details-header p{
-
-    color:var(--text-secondary);
-
-    line-height:1.8;
-
-    margin-bottom:30px;
+.details-header > p {
+  max-width: 700px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.7;
 }
 
-.join-btn{
-
-    background:var(--primary);
-
-    color:white;
-
-    padding:16px 28px;
-
-    border-radius:14px;
-
-    font-weight:600;
-
-    transition:.25s;
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.join-btn:hover{
-
-    background:var(--primary-hover);
-
-    transform:translateY(-2px);
+.status-badge.open {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
 }
 
-.details-grid{
+/* =========================
+   MAIN DETAILS
+========================= */
 
-    display:grid;
-
-    grid-template-columns:340px 1fr;
-
-    gap:28px;
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;
+  gap: 24px;
+  margin-bottom: 70px;
 }
 
-.details-card{
-
-    background:#111827;
-
-    border:1px solid rgba(255,255,255,.06);
-
-    border-radius:20px;
-
-    padding:28px;
+.details-card {
+  background: rgba(30, 41, 59, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px;
 }
 
-.details-card h3{
-
-    margin-bottom:22px;
+.details-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 25px;
 }
 
-.info-row{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:18px;
-
-    color:var(--text-secondary);
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 0;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
 }
 
-.info-row svg{
-
-    color:var(--primary);
+.info-row:last-child {
+  border-bottom: none;
 }
 
-.details-card p{
-
-    color:var(--text-secondary);
-
-    line-height:1.8;
+.info-row svg {
+  color: var(--primary);
+  flex-shrink: 0;
 }
 
-@media(max-width:900px){
-
-.details-grid{
-
-grid-template-columns:1fr;
-
+.details-card p {
+  color: var(--text-secondary);
+  line-height: 1.8;
 }
 
-.details-header h1{
+/* =========================
+   BUTTONS
+========================= */
 
-font-size:2.6rem;
-
+.join-btn,
+.join-team-btn {
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
 }
 
+.join-btn {
+  padding: 13px 22px;
+  border-radius: 10px;
+  margin-top: 25px;
+}
+
+.join-btn:hover,
+.join-team-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.join-btn:disabled,
+.join-team-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   CREATE TEAM FORM
+========================= */
+
+.team-form-card {
+  margin-bottom: 70px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+}
+
+.team-error {
+  color: #ef4444;
+  margin: 10px 0;
+}
+
+.team-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.secondary-btn {
+  padding: 13px 22px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* =========================
+   REGISTERED TEAMS
+========================= */
+
+.hackathon-teams {
+  margin-top: 20px;
+}
+
+.teams-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.details-tag {
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.teams-section-header h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.no-teams {
+  color: var(--text-secondary);
+}
+
+/* GRID */
+
+.hackathon-team-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+
+.hackathon-team-card {
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.45);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+
+  transition: var(--transition);
+}
+
+.hackathon-team-card:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  transform: translateY(-2px);
+}
+
+.hackathon-team-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 7px;
+}
+
+.hackathon-team-card p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* CARD ACTIONS */
+
+.hackathon-team-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 25px;
+}
+
+.team-view-btn,
+.join-team-btn {
+  padding: 10px 15px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.team-view-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.team-view-btn:hover {
+  border-color: var(--primary);
+  color: white;
+}
+
+.join-team-btn {
+  border: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hackathon-team-list {
+    grid-template-columns: 1fr;
+  }
+
+  .details-header h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .details-page {
+    padding: 40px 0 70px;
+  }
+
+  .details-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .hackathon-team-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .team-view-btn,
+  .join-team-btn {
+    text-align: center;
+    width: 100%;
+  }
 }
