@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "./HackathonDetails.css";
+
 import {
   CalendarDays,
   Trophy,
@@ -7,7 +10,69 @@ import {
   Clock,
 } from "lucide-react";
 
+import { getHackathonById } from "../../services/hackathonService";
+
 export default function HackathonDetails() {
+  const { id } = useParams();
+
+  const [hackathon, setHackathon] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchHackathon() {
+      try {
+        const data = await getHackathonById(id);
+
+        setHackathon(data.hackathon || data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load hackathon.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchHackathon();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <section className="details-page">
+        <div className="container">
+          <h2>Loading Hackathon...</h2>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !hackathon) {
+    return (
+      <section className="details-page">
+        <div className="container">
+          <h2>{error || "Hackathon not found."}</h2>
+        </div>
+      </section>
+    );
+  }
+
+  const startDate = new Date(hackathon.startDate).toLocaleDateString(
+    "en-IN",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
+
+  const deadline = new Date(
+    hackathon.registrationDeadline
+  ).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <section className="details-page">
       <div className="container">
@@ -18,11 +83,10 @@ export default function HackathonDetails() {
             ● OPEN
           </span>
 
-          <h1>HackVerse 2026</h1>
+          <h1>{hackathon.title}</h1>
 
           <p>
-            India's biggest national hackathon bringing together developers,
-            designers and innovators to solve real-world problems.
+            {hackathon.description}
           </p>
 
           <button className="join-btn">
@@ -38,28 +102,36 @@ export default function HackathonDetails() {
             <h3>Event Details</h3>
 
             <div className="info-row">
-              <CalendarDays size={18}/>
-              <span>10 Aug 2026</span>
+              <CalendarDays size={18} />
+              <span>{startDate}</span>
             </div>
 
             <div className="info-row">
-              <Clock size={18}/>
-              <span>Registration ends 5 Aug</span>
+              <Clock size={18} />
+              <span>
+                Registration ends {deadline}
+              </span>
             </div>
 
             <div className="info-row">
-              <Trophy size={18}/>
-              <span>₹100,000 Prize Pool</span>
+              <Trophy size={18} />
+              <span>
+                ₹{hackathon.prizePool?.toLocaleString()} Prize Pool
+              </span>
             </div>
 
             <div className="info-row">
-              <Users size={18}/>
-              <span>Max Team Size: 4</span>
+              <Users size={18} />
+              <span>
+                Max Team Size: {hackathon.maxTeamSize}
+              </span>
             </div>
 
             <div className="info-row">
-              <Globe size={18}/>
-              <span>Online</span>
+              <Globe size={18} />
+              <span>
+                {hackathon.mode}
+              </span>
             </div>
 
           </div>
@@ -69,10 +141,14 @@ export default function HackathonDetails() {
             <h3>About</h3>
 
             <p>
-              Participants will work in teams to build innovative software
-              solutions over 36 hours. Projects will be judged on creativity,
-              impact, technical implementation and presentation.
+              {hackathon.description}
             </p>
+
+            {hackathon.location && (
+              <p>
+                Location: {hackathon.location}
+              </p>
+            )}
 
           </div>
 
