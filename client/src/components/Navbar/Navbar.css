@@ -96,3 +96,30 @@
 .nav-register.active {
     background: var(--primary-hover);
 }
+.nav-logout {
+    background: transparent;
+    color: var(--text-secondary);
+
+    border: 1px solid var(--border);
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.nav-logout:hover {
+    color: white;
+
+    border-color: var(--primary);
+
+    background: rgba(99, 102, 241, 0.1);
+
+    transform: translateY(-1px);
+}
