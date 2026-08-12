@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 import api from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -42,15 +44,15 @@ export default function Login() {
         password: form.password,
       });
 
-      // Save JWT
-      localStorage.setItem("token", data.token);
+      // Update authentication state
+      login(data.token);
 
       // Go home after login
       navigate("/");
     } catch (err) {
       setError(
         err.response?.data?.message ||
-        "Login failed. Please check your credentials."
+          "Login failed. Please check your credentials."
       );
     } finally {
       setLoading(false);

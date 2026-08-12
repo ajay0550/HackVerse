@@ -270,3 +270,33 @@
     flex: 1;
   }
 }
+
+.submit-project-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 22px;
+
+  background: var(--primary);
+  color: white;
+
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+.submit-project-btn:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+
+  transform: translateY(-1px);
+}

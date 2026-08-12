@@ -1,0 +1,199 @@
+.organizer-page {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 70px 0 100px;
+}
+
+.organizer-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 45px;
+}
+
+.organizer-tag {
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.organizer-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.organizer-header p:last-child {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.create-hackathon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 20px;
+
+  background: var(--primary);
+  color: white;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  transition: var(--transition);
+}
+
+.create-hackathon-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.organizer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.organizer-card {
+  background: rgba(30, 41, 59, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  padding: 28px;
+
+  transition: var(--transition);
+}
+
+.organizer-card:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  transform: translateY(-2px);
+}
+
+.organizer-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.organizer-status {
+  color: #22c55e;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.organizer-mode {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.organizer-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.organizer-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+
+  min-height: 50px;
+
+  margin-bottom: 22px;
+}
+
+.organizer-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  padding: 18px 0;
+
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.organizer-info div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.organizer-info svg {
+  color: var(--primary);
+}
+
+.manage-hackathon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 22px;
+
+  color: white;
+  text-decoration: none;
+
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  transition: var(--transition);
+}
+
+.manage-hackathon-btn:hover {
+  color: var(--primary);
+  gap: 12px;
+}
+
+.empty-organizer {
+  padding: 70px 30px;
+
+  text-align: center;
+
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+}
+
+.empty-organizer h2 {
+  margin-bottom: 10px;
+}
+
+.empty-organizer p {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
+
+.organizer-error {
+  color: #ef4444;
+  margin-bottom: 20px;
+}
+
+.organizer-loading {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 800px) {
+  .organizer-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .organizer-header h1 {
+    font-size: 2.6rem;
+  }
+
+  .organizer-grid {
+    grid-template-columns: 1fr;
+  }
+}

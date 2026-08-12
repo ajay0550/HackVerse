@@ -1,27 +1,75 @@
 import "./FilterBar.css";
 
-export default function FilterBar() {
+export default function FilterBar({
+  status,
+  setStatus,
+  mode,
+  setMode,
+  sort,
+  setSort,
+}) {
   return (
     <div className="filter-bar">
 
-      <select>
-        <option>All Status</option>
-        <option>Open</option>
-        <option>Live</option>
-        <option>Closed</option>
+      <select
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+      >
+        <option value="All">
+          All Status
+        </option>
+
+        <option value="Open">
+          Open
+        </option>
+
+        <option value="Live">
+          Live
+        </option>
+
+        <option value="Closed">
+          Closed
+        </option>
       </select>
 
-      <select>
-        <option>All Modes</option>
-        <option>Online</option>
-        <option>Offline</option>
-        <option>Hybrid</option>
+
+      <select
+        value={mode}
+        onChange={(e) => setMode(e.target.value)}
+      >
+        <option value="All">
+          All Modes
+        </option>
+
+        <option value="Online">
+          Online
+        </option>
+
+        <option value="Offline">
+          Offline
+        </option>
+
+        <option value="Hybrid">
+          Hybrid
+        </option>
       </select>
 
-      <select>
-        <option>Newest First</option>
-        <option>Prize High → Low</option>
-        <option>Date</option>
+
+      <select
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}
+      >
+        <option value="newest">
+          Newest First
+        </option>
+
+        <option value="prize-high">
+          Prize High → Low
+        </option>
+
+        <option value="date">
+          Date
+        </option>
       </select>
 
     </div>

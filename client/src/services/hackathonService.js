@@ -9,3 +9,8 @@ export const getHackathonById = async (id) => {
   const { data } = await api.get(`/api/hackathons/${id}`);
   return data;
 };
+
+export const getMyHackathons = async () => {
+  const { data } = await api.get("/api/hackathons/my");
+  return data;
+};

@@ -1,45 +1,15 @@
-import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-import api from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    const fetchProfile = async () => {
-      try {
-        const { data } = await api.get("/api/users/profile");
-
-        setUser(data.user || data);
-      } catch (err) {
-        console.error("Failed to fetch profile:", err);
-
-        // Token is probably invalid/expired
-        localStorage.removeItem("token");
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, []);
+  const { user, loading, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
+    logout();
     navigate("/");
   };
 
@@ -52,21 +22,30 @@ export default function Navbar() {
         </Link>
 
         <nav className="nav-links">
+
           <NavLink to="/hackathons">
             Browse
           </NavLink>
 
-          <NavLink to="/teams">
-            Teams
-          </NavLink>
+          {/* Student navigation */}
+          {user?.role === "student" && (
+            <NavLink to="/teams">
+              Teams
+            </NavLink>
+          )}
 
-          <NavLink to="/host">
-            Host
-          </NavLink>
+          {/* Organizer navigation */}
+          {user?.role === "organiser" && (
+            <NavLink to="/organizer">
+              Dashboard
+            </NavLink>
+          )}
+
         </nav>
 
         <div className="nav-actions">
 
+          {/* Logged out */}
           {!loading && !user && (
             <>
               <NavLink
@@ -85,6 +64,7 @@ export default function Navbar() {
             </>
           )}
 
+          {/* Logged in */}
           {!loading && user && (
             <>
               <span className="nav-user">
@@ -92,6 +72,7 @@ export default function Navbar() {
               </span>
 
               <button
+                type="button"
                 className="nav-logout"
                 onClick={handleLogout}
               >

@@ -1,0 +1,114 @@
+.submit-page {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 70px 0 100px;
+}
+
+.submit-header {
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+
+.submit-tag {
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.submit-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  letter-spacing: -1px;
+}
+
+.submit-header p:last-child {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.submit-card {
+  max-width: 800px;
+  background: rgba(30, 41, 59, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 35px;
+}
+
+.submit-card .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.submit-card label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.submit-card input,
+.submit-card textarea {
+  width: 100%;
+  padding: 14px 15px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.submit-card textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.submit-card input:focus,
+.submit-card textarea:focus {
+  border-color: var(--primary);
+}
+
+.submit-error {
+  color: #ef4444;
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.submit-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 700px) {
+  .submit-page {
+    padding: 40px 0 70px;
+  }
+
+  .submit-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .submit-card {
+    padding: 22px;
+  }
+}

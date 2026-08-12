@@ -9,6 +9,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
+import { useAuth } from "../../context/AuthContext";
+
 import {
   getTeamById,
   getJoinRequests,
@@ -20,6 +22,8 @@ import {
 
 export default function TeamDetails() {
   const { id } = useParams();
+
+  const { user } = useAuth();
 
   const [team, setTeam] = useState(null);
   const [requests, setRequests] = useState([]);
@@ -34,11 +38,36 @@ export default function TeamDetails() {
   const [requestActionLoading, setRequestActionLoading] =
     useState(null);
 
+
+  const currentUserId =
+    user?._id || user?.id;
+
+  const leaderId =
+    team?.leader?._id || team?.leader;
+
+  const isOrganizer =
+    user?.role === "organiser";
+
+  const isLeader =
+    currentUserId &&
+    leaderId &&
+    currentUserId.toString() ===
+      leaderId.toString();
+
+  const isMember =
+    team?.members?.some(
+      (member) =>
+        (member?._id || member)?.toString() ===
+        currentUserId?.toString()
+    );
+
+
   const fetchTeam = async () => {
     try {
       const data = await getTeamById(id);
 
       setTeam(data.team || data);
+
     } catch (err) {
       console.error(err);
 
@@ -51,7 +80,19 @@ export default function TeamDetails() {
     }
   };
 
+
   const fetchJoinRequests = async () => {
+    /*
+      Only the team leader needs join requests.
+      This also prevents unnecessary 403 requests
+      for normal members and organizers.
+    */
+
+    if (!isLeader) {
+      setRequests([]);
+      return;
+    }
+
     setRequestsLoading(true);
     setRequestError("");
 
@@ -59,67 +100,81 @@ export default function TeamDetails() {
       const data = await getJoinRequests(id);
 
       setRequests(data.requests || []);
+
     } catch (err) {
-      /*
-        A non-leader will get a 403 from the backend.
-        That's expected, so we simply don't show
-        the Join Requests section to them.
-      */
+      console.error(err);
 
-      if (err.response?.status !== 403) {
-        console.error(err);
-
-        setRequestError(
-          err.response?.data?.message ||
-            "Failed to load join requests."
-        );
-      }
+      setRequestError(
+        err.response?.data?.message ||
+          "Failed to load join requests."
+      );
 
       setRequests([]);
+
     } finally {
       setRequestsLoading(false);
     }
   };
 
+
   useEffect(() => {
     fetchTeam();
-    fetchJoinRequests();
   }, [id]);
+
+
+  useEffect(() => {
+    if (team) {
+      fetchJoinRequests();
+    }
+  }, [team, id]);
+
 
   const handleAccept = async (requestId) => {
     setRequestActionLoading(requestId);
 
     try {
-      await acceptJoinRequest(id, requestId);
+      await acceptJoinRequest(
+        id,
+        requestId
+      );
 
       await fetchTeam();
       await fetchJoinRequests();
+
     } catch (err) {
       alert(
         err.response?.data?.message ||
           "Could not accept request."
       );
+
     } finally {
       setRequestActionLoading(null);
     }
   };
+
 
   const handleReject = async (requestId) => {
     setRequestActionLoading(requestId);
 
     try {
-      await rejectJoinRequest(id, requestId);
+      await rejectJoinRequest(
+        id,
+        requestId
+      );
 
       await fetchJoinRequests();
+
     } catch (err) {
       alert(
         err.response?.data?.message ||
           "Could not reject request."
       );
+
     } finally {
       setRequestActionLoading(null);
     }
   };
+
 
   const handleLeave = async () => {
     const confirmed = window.confirm(
@@ -134,15 +189,18 @@ export default function TeamDetails() {
       await leaveTeam(id);
 
       window.location.href = "/teams";
+
     } catch (err) {
       alert(
         err.response?.data?.message ||
           "Could not leave team."
       );
+
     } finally {
       setActionLoading(false);
     }
   };
+
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -157,15 +215,18 @@ export default function TeamDetails() {
       await deleteTeam(id);
 
       window.location.href = "/teams";
+
     } catch (err) {
       alert(
         err.response?.data?.message ||
           "Could not delete team."
       );
+
     } finally {
       setActionLoading(false);
     }
   };
+
 
   if (loading) {
     return (
@@ -176,6 +237,7 @@ export default function TeamDetails() {
       </section>
     );
   }
+
 
   if (error || !team) {
     return (
@@ -199,6 +261,7 @@ export default function TeamDetails() {
     );
   }
 
+
   return (
     <section className="team-details-page">
       <div className="container">
@@ -211,6 +274,7 @@ export default function TeamDetails() {
           Back to Teams
         </Link>
 
+
         <div className="team-details-header">
 
           <p className="team-details-tag">
@@ -220,10 +284,12 @@ export default function TeamDetails() {
           <h1>{team.name}</h1>
 
           <p className="team-hackathon">
-            {team.hackathon?.title || "Hackathon"}
+            {team.hackathon?.title ||
+              "Hackathon"}
           </p>
 
         </div>
+
 
         <div className="team-details-grid">
 
@@ -241,11 +307,13 @@ export default function TeamDetails() {
                 <span>Hackathon</span>
 
                 <strong>
-                  {team.hackathon?.title || "—"}
+                  {team.hackathon?.title ||
+                    "—"}
                 </strong>
               </div>
 
             </div>
+
 
             <div className="detail-row">
 
@@ -301,6 +369,7 @@ export default function TeamDetails() {
 
                   </div>
 
+
                   {member._id ===
                     team.leader?._id && (
 
@@ -325,9 +394,10 @@ export default function TeamDetails() {
         </div>
 
 
-        {/* JOIN REQUESTS */}
+        {/* JOIN REQUESTS — LEADER ONLY */}
 
-        {!requestsLoading &&
+        {isLeader && (
+          !requestsLoading &&
           requests.length > 0 && (
 
             <div className="team-details-card join-requests-card">
@@ -372,9 +442,11 @@ export default function TeamDetails() {
                     <div className="member-info">
 
                       <div className="member-avatar">
+
                         {request.user?.name
                           ?.charAt(0)
                           .toUpperCase()}
+
                       </div>
 
                       <div>
@@ -412,6 +484,7 @@ export default function TeamDetails() {
                           : "Accept"}
                       </button>
 
+
                       <button
                         className="reject-btn"
                         onClick={() =>
@@ -437,30 +510,51 @@ export default function TeamDetails() {
 
             </div>
 
-          )}
+          )
+        )}
 
 
         {/* ACTIONS */}
 
-        <div className="team-actions">
+        {isLeader && (
+          <div className="team-actions">
 
-          <button
-            className="team-leave-btn"
-            onClick={handleLeave}
-            disabled={actionLoading}
-          >
-            Leave Team
-          </button>
+            <Link
+              to={`/teams/${team._id}/submit`}
+              className="submit-project-btn"
+            >
+              Submit Project
+            </Link>
 
-          <button
-            className="team-delete-btn"
-            onClick={handleDelete}
-            disabled={actionLoading}
-          >
-            Delete Team
-          </button>
 
-        </div>
+            <button
+              className="team-delete-btn"
+              onClick={handleDelete}
+              disabled={actionLoading}
+            >
+              Delete Team
+            </button>
+
+          </div>
+        )}
+
+
+        {/* NORMAL MEMBER ACTIONS */}
+
+        {isMember && !isLeader && (
+          <div className="team-actions">
+
+            <button
+              className="team-leave-btn"
+              onClick={handleLeave}
+              disabled={actionLoading}
+            >
+              Leave Team
+            </button>
+
+          </div>
+        )}
+
 
       </div>
     </section>

@@ -317,3 +317,28 @@
     width: 100%;
   }
 }
+
+.leaderboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+
+  padding: 12px 20px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  color: white;
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: var(--transition);
+}
+
+.leaderboard-btn:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+}
