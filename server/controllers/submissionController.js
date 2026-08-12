@@ -151,3 +151,123 @@ export const updateSubmission = async (req, res) => {
         });
     }
 };
+
+export const judgeSubmission = async (req, res) => {
+    const { score, feedback } = req.body;
+
+    try {
+        const submission = await Submission.findById(req.params.id);
+
+        if (!submission) {
+            return res.status(404).json({
+                message: "Submission not found",
+            });
+        }
+
+        const hackathon = await Hackathon.findById(
+            submission.hackathon
+        );
+
+        if (!hackathon) {
+            return res.status(404).json({
+                message: "Hackathon not found",
+            });
+        }
+
+        
+        if (hackathon.organizer.toString() !== req.user.id) {
+            return res.status(403).json({
+                message: "Only the hackathon organizer can judge submissions",
+            });
+        }
+
+        if (score === undefined || score === null) {
+            return res.status(400).json({
+                message: "Score is required",
+            });
+        }
+
+        if (score < 0 || score > 100) {
+            return res.status(400).json({
+                message: "Score must be between 0 and 100",
+            });
+        }
+
+        submission.score = score;
+        submission.feedback = feedback || "";
+
+        await submission.save();
+
+        return res.status(200).json({
+            message: "Submission judged successfully",
+            submission,
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
+};
+
+export const getHackathonSubmissions = async (req, res) => {
+  try {
+    const hackathon = await Hackathon.findById(req.params.hackathonId);
+
+    if (!hackathon) {
+      return res.status(404).json({
+        message: "Hackathon not found",
+      });
+    }
+
+    // Only the organizer can view submissions
+    if (hackathon.organizer.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "Only the hackathon organizer can view submissions",
+      });
+    }
+
+    const submissions = await Submission.find({
+      hackathon: req.params.hackathonId,
+    })
+      .populate("team", "name")
+      .populate("hackathon", "title");
+
+    return res.status(200).json(submissions);
+
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+export const getHackathonLeaderboard = async (req, res) => {
+  try {
+    const hackathon = await Hackathon.findById(
+      req.params.hackathonId
+    );
+
+    if (!hackathon) {
+      return res.status(404).json({
+        message: "Hackathon not found",
+      });
+    }
+
+    const submissions = await Submission.find({
+      hackathon: req.params.hackathonId,
+      score: { $ne: null },
+    })
+      .populate("team", "name")
+      .sort({ score: -1 });
+
+    return res.status(200).json(submissions);
+
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};

@@ -3,6 +3,11 @@ import Hackathon from "../models/Hackathon.js";
 
 export const createHackathon = async (req, res) => {
     try {
+        if (req.user.role !== "organiser") {
+            return res.status(403).json({
+                message: "Only organizers can create hackathons",
+            });
+        }
         const hackathon = await Hackathon.create({
             ...req.body,
             organizer: req.user.id,
@@ -67,7 +72,7 @@ export const updateHackathon = async (req, res) => {
             });
         }
 
-       
+
         const {
             title,
             description,
@@ -118,7 +123,7 @@ export const deleteHackathon = async (req, res) => {
             });
         }
 
-        
+
         if (hackathon.organizer.toString() !== req.user.id) {
             return res.status(403).json({
                 message: "Not authorized",
@@ -135,4 +140,18 @@ export const deleteHackathon = async (req, res) => {
             message: err.message,
         });
     }
+};
+export const getMyHackathons = async (req, res) => {
+  try {
+    const hackathons = await Hackathon.find({
+      organizer: req.user.id,
+    }).populate("organizer", "name");
+
+    return res.status(200).json(hackathons);
+
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
 };
