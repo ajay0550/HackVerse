@@ -13,8 +13,6 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-
-// Create hackathon
 router.post(
   "/",
   authMiddleware,
@@ -22,30 +20,25 @@ router.post(
 );
 
 
-// Get hackathons created by logged-in organizer
-// MUST be before /:id
 router.get(
   "/my",
   authMiddleware,
   getMyHackathons
 );
 
-
-// Get all hackathons
 router.get(
   "/",
   getAllHackathons
 );
 
 
-// Get single hackathon
 router.get(
   "/:id",
   getHackathonById
 );
 
 
-// Update hackathon
+
 router.put(
   "/:id",
   authMiddleware,
@@ -53,7 +46,7 @@ router.put(
 );
 
 
-// Delete hackathon
+
 router.delete(
   "/:id",
   authMiddleware,

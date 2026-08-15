@@ -220,7 +220,7 @@ export const getHackathonSubmissions = async (req, res) => {
       });
     }
 
-    // Only the organizer can view submissions
+    
     if (hackathon.organizer.toString() !== req.user.id) {
       return res.status(403).json({
         message: "Only the hackathon organizer can view submissions",

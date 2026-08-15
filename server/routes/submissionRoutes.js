@@ -15,7 +15,6 @@ import authMiddleware from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 
-// Create submission
 router.post(
   "/",
   authMiddleware,
@@ -23,14 +22,11 @@ router.post(
 );
 
 
-// Get all submissions
 router.get(
   "/",
   getAllSubmissions
 );
 
-
-// Get submissions for a hackathon
 router.get(
   "/hackathon/:hackathonId",
   authMiddleware,
@@ -38,14 +34,11 @@ router.get(
 );
 
 
-// Get leaderboard for a hackathon
 router.get(
   "/hackathon/:hackathonId/leaderboard",
   getHackathonLeaderboard
 );
 
-
-// Judge submission
 router.put(
   "/:id/judge",
   authMiddleware,
@@ -53,14 +46,12 @@ router.put(
 );
 
 
-// Get submission by ID
 router.get(
   "/:id",
   getSubmissionById
 );
 
 
-// Update submission
 router.put(
   "/:id",
   authMiddleware,

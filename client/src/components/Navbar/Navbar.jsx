@@ -27,14 +27,13 @@ export default function Navbar() {
             Browse
           </NavLink>
 
-          {/* Student navigation */}
           {user?.role === "student" && (
             <NavLink to="/teams">
               Teams
             </NavLink>
           )}
 
-          {/* Organizer navigation */}
+
           {user?.role === "organiser" && (
             <NavLink to="/organizer">
               Dashboard
@@ -45,7 +44,7 @@ export default function Navbar() {
 
         <div className="nav-actions">
 
-          {/* Logged out */}
+
           {!loading && !user && (
             <>
               <NavLink
@@ -64,7 +63,7 @@ export default function Navbar() {
             </>
           )}
 
-          {/* Logged in */}
+          
           {!loading && user && (
             <>
               <span className="nav-user">

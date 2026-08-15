@@ -21,7 +21,7 @@ export default function HackathonCard({ hackathon }) {
     });
 
 
-  // Determine hackathon status
+  
 
   const now = new Date();
 

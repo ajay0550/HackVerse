@@ -97,7 +97,7 @@ export const acceptJoinRequest = async (req, res) => {
             });
         }
 
-        // Only leader can accept
+        
         if (team.leader.toString() !== req.user.id) {
             return res.status(403).json({
                 message: "Only the team leader can accept requests",
@@ -112,7 +112,7 @@ export const acceptJoinRequest = async (req, res) => {
             });
         }
 
-        // Check if team is full
+       
         if (team.members.length >= hackathon.maxTeamSize) {
             return res.status(400).json({
                 message: "Team is already full",
