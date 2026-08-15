@@ -1,5 +1,5 @@
 import Team from "../models/Team.js";
-import JoinRequest from "../models/JoinRequest.js";
+import JoinRequest from "../models/joinRequest.js";
 import Hackathon from "../models/Hackathon.js";
 
 
